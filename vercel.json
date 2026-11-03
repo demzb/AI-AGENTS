@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "frontend": {
+      "root": "generative_ui_agents/ai-deep-research-agent",
+      "framework": "nextjs",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "agent",
+          "format": "url",
+          "env": "LANGGRAPH_DEPLOYMENT_URL"
+        }
+      ]
+    },
+    "agent": {
+      "root": "generative_ui_agents/ai-deep-research-agent/agent",
+      "framework": "fastapi",
+      "entrypoint": "main:app"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "frontend"
+      }
+    }
+  ]
+}
